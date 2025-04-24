@@ -46,6 +46,14 @@ if __name__ == "__main__":
 
     time.sleep(0.05) # 50ms
 
+    # Send a message to default handler by using different address
+    prev_time = send_msg_with_time(client, "/default/address", ["defVal", 555], prev_time)
+
+    time.sleep(0.05)  # 50ms
+
+    # Send a message to wildcard address handler
+    prev_time = send_msg_with_time(client, "/tracking/vrsystem/somepath", ["fff", 222], prev_time)
+
     ###BUNDLE PART###
     # Create a bundle (executes immediately)
     bundle = osc_bundle_builder.OscBundleBuilder(osc_bundle_builder.IMMEDIATELY)

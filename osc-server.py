@@ -15,6 +15,14 @@ def handle_bye(addr, *args):
     for i, arg in enumerate(args):
         print(f"  arg[{i}]: {arg} (type: {type(arg)})")
 
+def default_handler_function(addr, *args):
+    for arg in args:
+        print(f"Default handler: {addr} : {arg}")
+
+def wildcard_address_test_function(addr, *args):
+    for arg in args:
+        print(f"Wildcard address handler: {addr} : {arg}")
+
 if __name__ == "__main__":
     os.system('cls' if os.name == 'nt' else 'clear')
     ip = "127.0.0.1"
@@ -33,6 +41,8 @@ if __name__ == "__main__":
     # Map OSC addresses to handler functions
     disp.map("/hello", handle_hello, "fixedArgHello", 100)
     disp.map("/bye", handle_bye, ["fixedArgBye", 200])
+    disp.map("/tracking/*", wildcard_address_test_function)
+    disp.set_default_handler(default_handler_function)
 
     # Create and start the server
     server = osc_server.ThreadingOSCUDPServer((args.ip, args.port), disp)
